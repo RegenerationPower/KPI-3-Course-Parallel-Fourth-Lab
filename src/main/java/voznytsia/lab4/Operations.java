@@ -1,6 +1,10 @@
 package voznytsia.lab4;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Operations {
     private final Random random = new Random();
@@ -125,5 +129,60 @@ public class Operations {
             }
         }
         return minValue;
+    }
+
+    public void printMatrix(double[][] matrix) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("");
+    }
+
+    public void readMatrix(String fileName, double[][] matrix) throws FileNotFoundException {
+        File file = new File(fileName);
+        Scanner scanner = new Scanner(file);
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                matrix[i][j] = scanner.nextDouble();
+            }
+        }
+
+        scanner.close();
+    }
+
+    public void readDoubleValues(String fileName, double[] arr) throws FileNotFoundException {
+        File file = new File(fileName);
+        Scanner scanner = new Scanner(file);
+
+        for (int i = 0; scanner.hasNextDouble() && i < arr.length; i++) {
+            arr[i] = scanner.nextDouble();
+        }
+
+        scanner.close();
+    }
+
+    public void writeArrayToFile(double[][] array, String filename) throws FileNotFoundException {
+        String filePath = new File(filename).getAbsolutePath();
+        PrintWriter writer = new PrintWriter(filePath);
+        for (double[] row : array) {
+            for (double elem : row) {
+                writer.printf("%.3f ", elem);
+            }
+            writer.println();
+        }
+        writer.close();
+    }
+
+    public void writeArrayToFile(double[] array, String filename) throws FileNotFoundException {
+        String filePath = new File(filename).getAbsolutePath();
+        PrintWriter writer = new PrintWriter(filePath);
+        for (double elem : array) {
+            writer.printf("%.3f ", elem);
+        }
+        writer.close();
     }
 }

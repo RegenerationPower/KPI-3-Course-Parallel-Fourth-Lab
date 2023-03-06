@@ -17,27 +17,41 @@ public class Main {
     public static void main(String[] args) {
         long startTime = System.nanoTime();
         Operations operations = new Operations();
+
         try {
             String inputFilePath = new File(INPUT_FILENAME).getAbsolutePath();
             Scanner scanner = new Scanner(new File(inputFilePath));
+
             int sizeMM = scanner.nextInt();
             int sizeME = scanner.nextInt();
             int sizeMX = scanner.nextInt();
             int sizeB = scanner.nextInt();
             int sizeD = scanner.nextInt();
+
             double q = scanner.nextDouble();
             scanner.close();
 
-            double[][] MM = operations.generateRandomMatrix(sizeMM, sizeMM);
-            double[][] ME = operations.generateRandomMatrix(sizeME, sizeME);
-            double[][] MX = operations.generateRandomMatrix(sizeMX, sizeMX);
-            double[] B = operations.generateRandomArray(sizeB);
-            double[] D = operations.generateRandomArray(sizeD);
-//            writeArrayToFile(MM, "MM.txt");
-//            writeArrayToFile(ME, "ME.txt");
-//            writeArrayToFile(MX, "MX.txt");
-//            writeArrayToFile(B, "B.txt");
-//            writeArrayToFile(D, "D.txt");
+//            double[][] MM = operations.generateRandomMatrix(sizeMM, sizeMM);
+//            double[][] ME = operations.generateRandomMatrix(sizeME, sizeME);
+//            double[][] MX = operations.generateRandomMatrix(sizeMX, sizeMX);
+//            double[] B = operations.generateRandomArray(sizeB);
+//            double[] D = operations.generateRandomArray(sizeD);
+            double[][] MM = new double[sizeMM][sizeMM];
+            double[][] ME = new double[sizeME][sizeME];
+            double[][] MX = new double[sizeMX][sizeMX];
+            double[] B = new double[sizeB];
+            double[] D = new double[sizeD];
+
+//            operations.writeArrayToFile(MM, "MM.txt");
+//            operations.writeArrayToFile(ME, "ME.txt");
+//            operations.writeArrayToFile(MX, "MX.txt");
+//            operations.writeArrayToFile(B, "B.txt");
+//            operations.writeArrayToFile(D, "D.txt");
+            operations.readMatrix("MM.txt", MM);
+            operations.readMatrix("ME.txt", ME);
+            operations.readMatrix("MX.txt", MX);
+            operations.readDoubleValues("B.txt", B);
+            operations.readDoubleValues("D.txt", D);
 
             String outputFilePath = new File(OUTPUT_FILENAME).getAbsolutePath();
             PrintWriter writer = new PrintWriter(outputFilePath);
@@ -127,31 +141,19 @@ public class Main {
             System.out.println("\nDuration: " + resultTime + " ns");
             writer.println("\nDuration: " + resultTime + " ns");
             writer.close();
-
+            operations.printMatrix(MM);
+            operations.printMatrix(ME);
+            operations.printMatrix(MX);
+            for (double d : B) {
+                System.out.print(d + " ");
+            }
+            System.out.println("\n");
+            for (double d : D) {
+                System.out.print(d + " ");
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
-
-//    private static void writeArrayToFile(double[][] array, String filename) throws FileNotFoundException {
-//        String filePath = new File(filename).getAbsolutePath();
-//        PrintWriter writer = new PrintWriter(filePath);
-//        for (double[] row : array) {
-//            for (double elem : row) {
-//                writer.printf("%.3f ", elem);
-//            }
-//            writer.println();
-//        }
-//        writer.close();
-//    }
-//
-//    private static void writeArrayToFile(double[] array, String filename) throws FileNotFoundException {
-//        String filePath = new File(filename).getAbsolutePath();
-//        PrintWriter writer = new PrintWriter(filePath);
-//        for (double elem : array) {
-//            writer.printf("%.3f ", elem);
-//        }
-//        writer.close();
-//    }
 
 }
