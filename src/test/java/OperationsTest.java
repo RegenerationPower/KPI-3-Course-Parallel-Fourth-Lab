@@ -1,5 +1,9 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import voznytsia.lab4.Operations;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -113,4 +117,27 @@ public class OperationsTest {
         }
     }
 
+    @Test
+    public void testWriteArrayToFileMatrix() throws FileNotFoundException {
+        double[][] array = {{1.0, 2.0}, {3.0, 4.0}};
+        String filename = "test_matrix_output.txt";
+        Operations operations = new Operations();
+        operations.writeArrayToFile(array, filename);
+        double[][] actual = new double[2][2];
+        operations.readMatrix(filename, actual);
+        Assertions.assertArrayEquals(array, actual);
+        new File(filename).delete();
+    }
+
+    @Test
+    public void testWriteArrayToFileVector() throws FileNotFoundException {
+        double[] array = {1.0, 2.0, 3.0};
+        String filename = "test_vector_output.txt";
+        Operations operations = new Operations();
+        operations.writeArrayToFile(array, filename);
+        double[] actual = new double[3];
+        operations.readVector(filename, actual);
+        Assertions.assertArrayEquals(array, actual);
+        new File(filename).delete();
+    }
 }

@@ -3,6 +3,7 @@ package voznytsia.lab4;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -132,45 +133,49 @@ public class Operations {
     }
 
     public void printMatrix(double[][] matrix) {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                System.out.print(matrix[i][j] + " ");
+        for (double[] row : matrix) {
+            for (double v : row) {
+                System.out.print(v + " ");
             }
             System.out.println();
         }
-        System.out.println("");
+        System.out.println();
     }
 
     public void readMatrix(String fileName, double[][] matrix) throws FileNotFoundException {
         File file = new File(fileName);
         Scanner scanner = new Scanner(file);
+        scanner.useLocale(Locale.US);
 
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                matrix[i][j] = scanner.nextDouble();
+        for (int i = 0; i < matrix.length; i++) {
+            String[] values = scanner.nextLine().split(" ");
+            for (int j = 0; j < matrix[i].length; j++) {
+                matrix[i][j] = Double.parseDouble(values[j]);
             }
         }
-
         scanner.close();
     }
 
-    public void readDoubleValues(String fileName, double[] arr) throws FileNotFoundException {
+
+    public void readVector(String fileName, double[] vector) throws FileNotFoundException {
         File file = new File(fileName);
         Scanner scanner = new Scanner(file);
+        scanner.useLocale(Locale.US);
 
-        for (int i = 0; scanner.hasNextDouble() && i < arr.length; i++) {
-            arr[i] = scanner.nextDouble();
+        for (int i = 0; i < vector.length; i++) {
+            vector[i] = scanner.nextDouble();
         }
 
         scanner.close();
     }
+
 
     public void writeArrayToFile(double[][] array, String filename) throws FileNotFoundException {
         String filePath = new File(filename).getAbsolutePath();
         PrintWriter writer = new PrintWriter(filePath);
         for (double[] row : array) {
             for (double elem : row) {
-                writer.printf("%.3f ", elem);
+                writer.printf(elem + " ");
             }
             writer.println();
         }
@@ -181,7 +186,7 @@ public class Operations {
         String filePath = new File(filename).getAbsolutePath();
         PrintWriter writer = new PrintWriter(filePath);
         for (double elem : array) {
-            writer.printf("%.3f ", elem);
+            writer.printf(elem + " ");
         }
         writer.close();
     }

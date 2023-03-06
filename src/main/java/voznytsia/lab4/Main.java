@@ -42,16 +42,27 @@ public class Main {
             double[] B = new double[sizeB];
             double[] D = new double[sizeD];
 
+            operations.readMatrix("MM.txt", MM);
+            operations.readMatrix("ME.txt", ME);
+            operations.readMatrix("MX.txt", MX);
+            operations.readVector("B.txt", B);
+            operations.readVector("D.txt", D);
+//            operations.readMatrix("MMBig.txt", MM);
+//            operations.readMatrix("MEBig.txt", ME);
+//            operations.readMatrix("MXBig.txt", MX);
+//            operations.readVector("BBig.txt", B);
+//            operations.readVector("DBig.txt", D);
+
 //            operations.writeArrayToFile(MM, "MM.txt");
 //            operations.writeArrayToFile(ME, "ME.txt");
 //            operations.writeArrayToFile(MX, "MX.txt");
 //            operations.writeArrayToFile(B, "B.txt");
 //            operations.writeArrayToFile(D, "D.txt");
-            operations.readMatrix("MM.txt", MM);
-            operations.readMatrix("ME.txt", ME);
-            operations.readMatrix("MX.txt", MX);
-            operations.readDoubleValues("B.txt", B);
-            operations.readDoubleValues("D.txt", D);
+//            operations.writeArrayToFile(MM, "MMBig.txt");
+//            operations.writeArrayToFile(ME, "MEBig.txt");
+//            operations.writeArrayToFile(MX, "MXBig.txt");
+//            operations.writeArrayToFile(B, "BBig.txt");
+//            operations.writeArrayToFile(D, "DBig.txt");
 
             String outputFilePath = new File(OUTPUT_FILENAME).getAbsolutePath();
             PrintWriter writer = new PrintWriter(outputFilePath);
